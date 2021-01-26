@@ -1,0 +1,5 @@
+git+git://github.com/Rapptz/discord.py
+git+git://github.com/python-pillow/Pillow
+git+git://github.com/Ovyerus/deeppyer
+requests
+python-pptx
