@@ -12,7 +12,7 @@ class Poll(commands.Cog):
 
         await ctx.send("Enter options (one per line):")
         options = await self.bot.wait_for('message',check=check)
-        options = options.split('\n')
+        options = options.content.split('\n')
 
         json = '{' + f'"title": "{title}", "options": {options}, "multi": true, "dupcheck": "permissive"' + "}"
 
