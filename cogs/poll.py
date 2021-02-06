@@ -14,9 +14,9 @@ class Poll(commands.Cog):
         options = await self.bot.wait_for('message',check=check)
         options = options.content.split('\n')
 
-        json = '{' + f'"title": "{title}", "options": {options}, "multi": true, "dupcheck": "permissive"' + "}"
+        data = '{' + f'"title": "{title}", "options": {options}, "multi": true, "dupcheck": "permissive"' + "}"
 
-        response = json.loads(requests.post(url="https://strawpoll.me/api/v2/polls",json=json).json())
+        response = requests.post(url="https://strawpoll.me/api/v2/polls",json=data).json()
         link = f'https://strawpoll.me/{response["id"]}'
 
         await channel.send(f"@here {link}")
