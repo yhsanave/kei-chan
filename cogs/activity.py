@@ -4,7 +4,7 @@ from discord.ext import commands
 class Activity(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.activities = [discord.ActivityType.playing, discord.ActivityType.streaming, discord.ActivityType.listening, discord.ActivityType.watching]
+        self.activities = [discord.ActivityType.playing, discord.ActivityType.streaming, discord.ActivityType.listening, discord.ActivityType.watching, discord.ActivityType.custom]
 
     #Change the bot's status message
     @commands.command(name='activity', help='set the activity type (0: Playing, 1: Streaming, 2: Listening, 3: Watching) and message')
