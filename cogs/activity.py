@@ -8,7 +8,7 @@ class Activity(commands.Cog):
 
     #Change the bot's status message
     @commands.command(name='activity', help='set the activity type (0: Playing, 1: Streaming, 2: Listening, 3: Watching) and message')
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def activity(self, ctx, type: int, *, activity: str):
         print('[Activity] Status updated:', self.activities[type], activity)
         await self.bot.change_presence(activity=discord.Activity(name=activity, type=self.activities[type]))

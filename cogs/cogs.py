@@ -7,7 +7,7 @@ class Cogs(commands.Cog):
 
     #Command to manually load a cog
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def load(self, ctx, extension):
         try:
             self.bot.load_extension(f'cogs.{extension}')
@@ -20,7 +20,7 @@ class Cogs(commands.Cog):
 
     #Command to manually unload a cog
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def unload(self, ctx, extension):
         try:
             self.bot.unload_extension(f'cogs.{extension}')
@@ -33,7 +33,7 @@ class Cogs(commands.Cog):
 
     #command to manually reload a cog
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def reload(self, ctx, extension):
         try:
             self.bot.reload_extension(f'cogs.{extension}')

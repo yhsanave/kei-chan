@@ -8,7 +8,7 @@ class Say(commands.Cog):
 
     #say command, makes the bot send a message in a given channel
     @commands.command(name='say', help='Kei-chan sends a message in the designated channel')
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def say(self, ctx, chan, *, message=''):
         channel = discord.utils.get(self.bot.get_all_channels(), id=int(chan[2:-1]))
         await channel.trigger_typing()

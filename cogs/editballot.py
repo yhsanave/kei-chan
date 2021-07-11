@@ -7,7 +7,7 @@ class MakeBallot(commands.Cog):
 
     #makeballot command, begins taking input from the user who runs the command and using that input to create an embed to put in #announcements
     @commands.command(name="editballot",help="Create a ballot and post it in given channel; requires Officer role")
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def editballot(self, ctx, chan, id: int):
         def check(m):
             return m.author == ctx.message.author

@@ -19,7 +19,7 @@ class Avatar(commands.Cog):
 
     #Command to set a random avatar from the avatars folder
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def ravatar(self, ctx):
         print('[Avatar] Updating Avatar...')
         try:
@@ -32,7 +32,7 @@ class Avatar(commands.Cog):
 
     #Command to set an image posted by the user as the avatar
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def avatar(self, ctx):
         if ctx.message.attachments[0] != None:
             try:
@@ -55,7 +55,7 @@ class Avatar(commands.Cog):
 
     #Command to select a specific avatar from the avatars folder
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def lavatar(self, ctx, i: int):
         print('[Avatar] Updating Avatar...')
         try:
@@ -92,7 +92,7 @@ class Avatar(commands.Cog):
     
     #Command to toggle the automatic cycling of avatars
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def cavatar(self, ctx):
         try:
             self.avaCycle.start()

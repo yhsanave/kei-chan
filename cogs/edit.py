@@ -6,7 +6,7 @@ class Edit(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.has_role('Officers')
+    @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     async def edit(self, ctx, chan, id: int, *, newmessage):
         await ctx.channel.trigger_typing()
         channel = discord.utils.get(self.bot.get_all_channels(), id=int(chan[2:-1]))
