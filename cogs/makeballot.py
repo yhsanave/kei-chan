@@ -16,11 +16,11 @@ class MakeBallot(commands.Cog):
         def checkr(r, u):
             return ctx.message.author == u
 
-        async def send_preview():
-            embed = discord.Embed(description = description.content, color = discord.Color.dark_red())
-            embed.set_author(name=title.content)
-            embed.set_footer(text=footer.content)
-            embed.add_field(name='Ballot:', value=ballot.content, inline=False)
+        async def send_preview(isImport):
+            embed = discord.Embed(description = description if isImport else description.content, color = discord.Color.dark_red())
+            embed.set_author(name=title if isImport else title.content)
+            embed.set_footer(text=footer if isImport else footer.content)
+            embed.add_field(name='Ballot:', value=ballot if isImport else ballot.content, inline=False)
 
             preview = await ctx.send(embed=embed)
             await preview.add_reaction('👍')
@@ -41,7 +41,7 @@ class MakeBallot(commands.Cog):
                 description = imported['body']
                 ballot = '\n'.join(imported['shows'])
                 footer = imported['footer']
-                await send_preview()
+                await send_preview(True)
             except json.JSONDecodeError:
                 await ctx.send('Invalid import code')
         else:
@@ -57,7 +57,7 @@ class MakeBallot(commands.Cog):
             await ctx.send('Enter Closing Statement:')
             footer = await self.bot.wait_for('message',check=check)
 
-            await send_preview()
+            await send_preview(False)
 
 def setup(bot):
     bot.add_cog(MakeBallot(bot))
