@@ -36,9 +36,9 @@ class MakeBallot(commands.Cog):
         if importCode:
             try: 
                 imported = json.loads(importCode)
-                title = imported['title']
+                title = imported['header']
                 description = imported['body']
-                ballot = '\n'.join(imported['ballot'])
+                ballot = '\n'.join(imported['shows'])
                 footer = imported['footer']
                 send_preview()
             except json.JSONDecodeError:
