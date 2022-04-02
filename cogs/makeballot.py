@@ -35,7 +35,7 @@ class MakeBallot(commands.Cog):
                         await ctx.send('Announcement Cancelled')
         if importCode:
             try: 
-                imported = json.load(importCode)
+                imported = json.loads(importCode)
                 title = imported['title']
                 description = imported['body']
                 ballot = '\n'.join(imported['ballot'])
@@ -57,8 +57,6 @@ class MakeBallot(commands.Cog):
             footer = await self.bot.wait_for('message',check=check)
 
             send_preview()
-
-        
 
 def setup(bot):
     bot.add_cog(MakeBallot(bot))
