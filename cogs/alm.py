@@ -1,20 +1,28 @@
-import discord, re
+import discord
+import re
 from discord.ext import commands
-from PIL import Image, ImageFile, ImageMath, ImageOps
+from PIL import Image, ImageMath, ImageOps
+
 
 class AntiLightMode(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.imagetypes = re.compile(r'.png$|.jpg$|.jpeg$|.bmp$|.gif$', re.IGNORECASE)
+        self.imagetypes = re.compile(
+            r'.png$|.jpg$|.jpeg$|.bmp$|.gif$', re.IGNORECASE)
 
-    #AntiLightMode: Inverts the colors on images attached to messages when a user reacts with ⬜
     @commands.Cog.listener()
-    async def on_reaction_add(self, reaction, user):
+    async def on_ready(self):
+        print('[Startup] Cog AntiLightMode loaded successfully')
+
+    # AntiLightMode: Inverts the colors on images attached to messages when a user reacts with ⬜
+    @commands.Cog.listener()
+    async def on_reaction_add(self, reaction: discord.Reaction, user):
         if reaction.emoji == "⬜":
             await reaction.message.clear_reactions()
             await reaction.message.channel.trigger_typing()
             try:
-                attach = discord.File(str('attachments/attach' + self.imagetypes.search(reaction.message.attachments[0].filename)[0]))
+                attach = discord.File(str(
+                    'attachments/attach' + self.imagetypes.search(reaction.message.attachments[0].filename)[0]))
             except (IndexError, FileNotFoundError, AttributeError):
                 print("[ALM] No valid image detected", reaction.message)
             else:
@@ -26,5 +34,6 @@ class AntiLightMode(commands.Cog):
                 image.save('attachments/' + attach.filename)
                 await reaction.message.channel.send("Light Mode Detected! Let me fix that for you:", file=attach)
 
-def setup(bot):
+
+def setup(bot: commands.Bot):
     bot.add_cog(AntiLightMode(bot))
