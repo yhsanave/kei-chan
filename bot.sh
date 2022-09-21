@@ -1,1 +1,2 @@
-lxterminal -t 'Kei-chan' --working-directory /home/pi/Desktop/Kei-chan -e bash -c python3.10 bot.py
+sleep 10
+lxterminal --title 'Kei-chan' --working-directory /home/pi/Desktop/Kei-chan --command "python3.10 bot.py; exec bash"
