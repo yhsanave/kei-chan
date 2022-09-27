@@ -1,6 +1,6 @@
 import discord
 import re
-from discord.ext import commands
+from discord.ext import bridge, commands
 
 
 class Say(commands.Cog):
@@ -14,11 +14,11 @@ class Say(commands.Cog):
         print('[Startup] Cog Say loaded successfully')
 
     # say command, makes the bot send a message in a given channel
-    @commands.slash_command(name='say', help='Kei-chan sends a message in the designated channel')
+    @bridge.bridge_command(name='say', description='Kei-chan sends a message in the designated channel')
     @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     @discord.option('channel', discord.SlashCommandOptionType.channel, description='The channel to send the message in')
     @discord.option('message', str, description='The message to send (supports attachments)')
-    async def say(self, ctx: discord.ApplicationContext, channel: discord.SlashCommandOptionType.channel, message: str):
+    async def say(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, message: str):
         await channel.trigger_typing()
         try:
             attach = discord.File(str(
@@ -32,7 +32,7 @@ class Say(commands.Cog):
             await channel.send(message, file=attach)
         await ctx.respond('Message Sent', ephemeral=True)
 
-    @commands.slash_command(name='edit', description='Edit a message sent by Kei-chan')
+    @bridge.bridge_command(name='edit', description='Edit a message sent by Kei-chan')
     @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     @discord.option('channel', discord.SlashCommandOptionType.channel, description='The channel that the message is in')
     @discord.option('id', int, description='The id of the message')
