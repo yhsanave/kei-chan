@@ -18,7 +18,7 @@ class Say(commands.Cog):
     @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     @discord.option('channel', discord.SlashCommandOptionType.channel, description='The channel to send the message in')
     @discord.option('message', str, description='The message to send (supports attachments)')
-    async def say(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, message: str):
+    async def say(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, *, message: str):
         await channel.trigger_typing()
         try:
             attach = discord.File(str(
@@ -37,7 +37,7 @@ class Say(commands.Cog):
     @discord.option('channel', discord.SlashCommandOptionType.channel, description='The channel that the message is in')
     @discord.option('id', int, description='The id of the message')
     @discord.option('newmessage', str, description='The edited message')
-    async def edit(self, ctx: discord.ApplicationContext, channel: discord.SlashCommandOptionType.channel, id: int, *, newmessage):
+    async def edit(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, id: int, *, newmessage: str):
         await ctx.channel.trigger_typing()
         history = await channel.history(limit=200).flatten()
         for message in history:
