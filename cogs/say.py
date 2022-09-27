@@ -35,13 +35,13 @@ class Say(commands.Cog):
     @bridge.bridge_command(name='edit', description='Edit a message sent by Kei-chan')
     @commands.check_any(commands.has_role('Officers'), commands.is_owner())
     @discord.option('channel', discord.SlashCommandOptionType.channel, description='The channel that the message is in')
-    @discord.option('id', int, description='The id of the message')
+    @discord.option('id', str, description='The id of the message')
     @discord.option('newmessage', str, description='The edited message')
-    async def edit(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, id: int, *, newmessage: str):
+    async def edit(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, id: str, *, newmessage: str):
         await ctx.channel.trigger_typing()
         history = await channel.history(limit=200).flatten()
         for message in history:
-            if message.id == id:
+            if message.id == int(id):
                 try:
                     await message.edit(content=newmessage)
                     await ctx.respond("Message Edited", ephemeral=True)
