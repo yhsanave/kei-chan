@@ -1,13 +1,13 @@
 # bot.py
 import discord
 import os
-from discord.ext import commands
+from discord.ext import bridge
 from dotenv import dotenv_values
 
 TOKEN = dotenv_values()['TOKEN']
 GUILD_ID = dotenv_values()['GUILD_ID']
 
-bot = commands.Bot(command_prefix='.', activity=discord.Activity(
+bot = bridge.Bot(command_prefix='.', activity=discord.Activity(
     name='Anime', type=discord.ActivityType.watching), intents=discord.Intents.all())
 
 
